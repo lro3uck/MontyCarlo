@@ -1,3 +1,6 @@
+import math
+
+
 class RNG:
 
     def __init__(self):
@@ -28,3 +31,14 @@ rng = RNG()
 print(rng.next(), rng.next(), rng.next())  # first 3: 0.6779, 0.1701, 0.5096
 first100 = rng.many(100)
 print(first100[50:53])  # 51st, 52nd, and 53rd go in report
+
+
+def generate_next_X():
+    u = rng.next()
+    return X_invcdf(u)
+
+
+def X_invcdf(u):
+    if u < 0 or u > 1:
+        raise ValueError
+    return -12*math.log(1-u)
