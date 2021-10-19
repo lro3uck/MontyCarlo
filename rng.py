@@ -1,27 +1,31 @@
-class RNG:
 
-    def __init__(self):
-        self.a = 24693
-        self.c = 3517
-        self.K = 2**15
-        self.x_0 = 1000
-        self.x = self.x_0
+a = 24693
+c = 3517
+K = 2**15
+x_0 = 1000
+x = x_0
 
-    def next(self):
-        '''generate next random number'''
+def next():
+    global a
+    global c
+    global K
+    global x_0
+    global x
+    x = int((a * x + c) % K)
+    return x / K
+        #'''generate next random number'''
         # int cast to prevent accumulated floating point errors
         # linear congruential RNG
-        self.x = int((self.a * self.x + self.c) % self.K)
-        return self.x / self.K
 
-    def reset(self):
+def reset(self):
         '''reset seed of RNG'''
-        self.x = self.x_0
+        global x, x_0
+        x = x_0
 
-    def many(self, n):
+def many(self, n):
         '''reset RNG, then return a list of the next n random numbers'''
-        self.reset()
-        return [self.next() for i in range(n)]
+        reset()
+        return [next() for i in range(n)]
 
 
 rng = RNG()
